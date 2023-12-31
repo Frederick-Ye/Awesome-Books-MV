@@ -10,7 +10,7 @@ function loadBooks() {
   return JSON.parse(bookCollection) || [];
 }
 let books = loadBooks();
-let bookId = parseInt(books.length + 1);
+let bookId = parseInt(books.length + 1, 10);
 
 function saveBooks() {
   localStorage.setItem(Keys, JSON.stringify(books));
@@ -55,5 +55,5 @@ bookList.addEventListener('click', (e) => {
   const parent = e.target.closest('#bookContainer');
   const { bookId } = parent.dataset;
   parent.remove();
-  deleteBook(parseInt(bookId));
+  deleteBook(parseInt(bookId, 10));
 });
