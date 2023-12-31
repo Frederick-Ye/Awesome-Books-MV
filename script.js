@@ -10,7 +10,7 @@ function loadBooks() {
   return JSON.parse(bookCollection) || [];
 }
 let books = loadBooks();
-let bookId = books.length + 1;
+let bookId = parseInt(books.length + 1);
 
 function saveBooks() {
   localStorage.setItem(Keys, JSON.stringify(books));
@@ -47,13 +47,13 @@ bookForm.addEventListener('submit', (e) => {
   saveBooks();
   titleInput.value = '';
   authorInput.value = '';
-  bookId++;
+  bookId += 1;
 });
 
 bookList.addEventListener('click', (e) => {
-  if(!e.target.matches('[data-button-delete]')) return;
+  if (!e.target.matches('[data-button-delete]')) return;
   const parent = e.target.closest('#bookContainer');
   const { bookId } = parent.dataset;
   parent.remove();
   deleteBook(parseInt(bookId));
-})
+});
