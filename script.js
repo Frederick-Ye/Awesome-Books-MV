@@ -1,60 +1,75 @@
+class BookCollection {
+  constructor() {
+    this.books = this.loadBooks();
+    this.bookId = this.books.length + 1;
+  }
+
+  loadBooks() {
+    return JSON.parse(localStorage.getItem('Books')) || [];
+  }
+
+  saveBooks() {
+    localStorage.setItem('Books', JSON.stringify(this.books));
+  }
+
+  deleteBook(bookId) {
+    this.books = this.books.filter((book) => book.id !== bookId);
+    this.saveBooks();
+  }
+
+  displayBook(book) {
+    const templateClone = bookTemplate.content.cloneNode(true);
+    const bookTitle = templateClone.querySelector('#book-title');
+    const bookAuthor = templateClone.querySelector('#book-author');
+    const bookContainer = templateClone.querySelector('#bookContainer');
+    bookContainer.dataset.bookId = book.id;
+    bookTitle.textContent = book.title;
+    bookAuthor.textContent = book.author;
+    if (this.books.indexOf(book) % 2 === 0) bookContainer.classList.add('bg-gray');
+    bookList.appendChild(templateClone);
+  }
+
+  addBook(title, author) {
+    const newBook = {
+      id: this.bookId,
+      title: `"${title}"`,
+      author: author,
+    };
+    this.books.push(newBook);
+    this.displayBook(newBook);
+    this.saveBooks();
+    this.bookId += 1;
+  }
+}
+
 const bookList = document.querySelector('#bookList');
 const bookTemplate = document.getElementById('bookTemplate');
 const bookForm = document.getElementById('bookForm');
 const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
-const Keys = 'Books';
 
-function loadBooks() {
-  const bookCollection = localStorage.getItem(Keys);
-  return JSON.parse(bookCollection) || [];
-}
-let books = loadBooks();
-let bookId = parseInt(books.length + 1, 10);
+const bookCollection = new BookCollection();
 
-function saveBooks() {
-  localStorage.setItem(Keys, JSON.stringify(books));
-}
-function deleteBook(bookId) {
-  books = books.filter((book) => book.id !== bookId);
-  saveBooks();
-}
+bookCollection.books.forEach((book) => bookCollection.displayBook(book));
 
-function renderBook(book) {
-  const templateClone = bookTemplate.content.cloneNode(true);
-  const bookTitle = templateClone.querySelector('#book-title');
-  const bookAuthor = templateClone.querySelector('#book-author');
-  const bookContainer = templateClone.querySelector('#bookContainer');
-  bookContainer.dataset.bookId = book.id;
-  bookTitle.textContent = book.title;
-  bookAuthor.textContent = book.author;
-  if (books.indexOf(book) % 2 == 0) bookContainer.classList.add('bg-gray');
-  bookList.appendChild(templateClone);
-}
-
-books.forEach(renderBook);
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const bookTitle = titleInput.value;
   const bookAuthor = authorInput.value;
   if (!bookTitle || !bookAuthor) return;
-  const newBook = {
-    id: bookId,
-    title: `"${bookTitle}"`,
-    author: bookAuthor,
-  };
-  books.push(newBook);
-  renderBook(newBook);
-  saveBooks();
+  bookCollection.addBook(bookTitle, bookAuthor);
   titleInput.value = '';
   authorInput.value = '';
-  bookId += 1;
 });
 
 bookList.addEventListener('click', (e) => {
-  if (!e.target.matches('[data-button-delete]')) return;
-  const parent = e.target.closest('#bookContainer');
-  const { bookId } = parent.dataset;
+  const deleteButton = e.target.closest('[data-button-delete]');
+  if (!deleteButton) return;
+
+  const parent = deleteButton.closest('#bookContainer');
+  if (!parent) return;
+
+  const bookId = parent.id;
   parent.remove();
-  deleteBook(parseInt(bookId, 10));
+  bookCollection.deleteBook(parseInt(bookId, 10));
 });
