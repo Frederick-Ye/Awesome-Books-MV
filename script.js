@@ -49,9 +49,13 @@ bookForm.addEventListener('submit', (e) => {
 });
 
 bookList.addEventListener('click', (e) => {
-  if (!e.target.matches('[data-button-delete]')) return;
-  const parent = e.target.closest('#bookContainer');
-  const { bookId } = parent.dataset;
+  const deleteButton = e.target.closest('[data-button-delete]');
+  if (!deleteButton) return;
+
+  const parent = deleteButton.closest('#bookContainer');
+  if (!parent) return;
+
+  const bookId = parent.id;
   parent.remove();
   deleteBook(parseInt(bookId, 10));
 });
