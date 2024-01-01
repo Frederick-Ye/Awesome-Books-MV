@@ -18,7 +18,7 @@ function deleteBook(bookId) {
   saveBooks();
 }
 
-function renderBook(book) {
+function displayBook(book) {
   const templateClone = bookTemplate.content.cloneNode(true);
   const bookTitle = templateClone.querySelector('#book-title');
   const bookAuthor = templateClone.querySelector('#book-author');
@@ -29,7 +29,7 @@ function renderBook(book) {
   bookList.appendChild(templateClone);
 }
 
-books.forEach(renderBook);
+books.forEach(displayBook);
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const bookTitle = titleInput.value;
