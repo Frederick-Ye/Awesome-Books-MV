@@ -26,7 +26,7 @@ function displayBook(book) {
   bookContainer.dataset.bookId = book.id;
   bookTitle.textContent = book.title;
   bookAuthor.textContent = book.author;
-  if (books.indexOf(book) % 2 == 0) bookContainer.classList.add('bg-gray');
+  if (books.indexOf(book) % 2 === 0) bookContainer.classList.add('bg-gray');
   bookList.appendChild(templateClone);
 }
 
