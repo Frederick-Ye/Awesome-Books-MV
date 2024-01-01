@@ -69,7 +69,7 @@ bookList.addEventListener('click', (e) => {
   const parent = deleteButton.closest('#bookContainer');
   if (!parent) return;
 
-  const bookId = parent.id;
+  const bookId = parent.getAttribute('data-book-id');
   parent.remove();
   bookCollection.deleteBook(parseInt(bookId, 10));
 });
