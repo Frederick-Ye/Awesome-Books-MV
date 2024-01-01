@@ -3,17 +3,15 @@ const bookTemplate = document.getElementById('bookTemplate');
 const bookForm = document.getElementById('bookForm');
 const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
-const Keys = 'Books';
 
 function loadBooks() {
-  const bookCollection = localStorage.getItem(Keys);
-  return JSON.parse(bookCollection) || [];
+  return JSON.parse(localStorage.getItem('Books')) || [];
 }
 let books = loadBooks();
 let bookId = parseInt(books.length + 1, 10);
 
 function saveBooks() {
-  localStorage.setItem(Keys, JSON.stringify(books));
+  localStorage.setItem('Books', JSON.stringify(books));
 }
 function deleteBook(bookId) {
   books = books.filter((book) => book.id !== bookId);
