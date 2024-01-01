@@ -41,7 +41,7 @@ bookForm.addEventListener('submit', (e) => {
     author: bookAuthor,
   };
   books.push(newBook);
-  renderBook(newBook);
+  displayBook(newBook);
   saveBooks();
   titleInput.value = '';
   authorInput.value = '';
