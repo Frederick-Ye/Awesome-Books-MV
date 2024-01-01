@@ -6,32 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Awesome books</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
   <header>
-    <h1>Awesome books</h1>
+    <h1>All Awesome books</h1>
   </header>
-  <div id="bookList">
+  <section id="bookList">
 
-  </div>
+  </section>
   <template id="bookTemplate">
-    <div id="bookContainer">
-      <p id="book-title"></p>
-      <p id="book-author"></p>
+    <div id="bookContainer" class="book-container">
+      <div class="bookText">
+        <p class="my-0" id="book-title"></p>
+        <p class="my-0">by</p>
+        <p class="my-0" id="book-author"></p>
+      </div>
       <button id="removeBtn" type="button" class="closeBtn" data-button-delete>Remove</button>
-      <hr>
     </div>
   </template>
 
   <main>
+    <div class="division"></div>
+    <h1 class="pb-1">Add a new book</h1>
     <form id="bookForm">
       <input type="text" id="title" placeholder="Title" required>
       <input type="text" id="author" placeholder="Author" required>
-      <button id="openBtn" type="submit">Add</button>
+      <button id="openBtn" type="submit" class="addBtn">Add</button>
     </form>
   </main>
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

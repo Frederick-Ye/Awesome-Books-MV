@@ -28,6 +28,7 @@ function renderBook(book) {
   bookContainer.dataset.bookId = book.id;
   bookTitle.textContent = book.title;
   bookAuthor.textContent = book.author;
+  if (books.indexOf(book) % 2 == 0) bookContainer.classList.add('bg-gray');
   bookList.appendChild(templateClone);
 }
 
@@ -39,7 +40,7 @@ bookForm.addEventListener('submit', (e) => {
   if (!bookTitle || !bookAuthor) return;
   const newBook = {
     id: bookId,
-    title: bookTitle,
+    title: `"${bookTitle}"`,
     author: bookAuthor,
   };
   books.push(newBook);
