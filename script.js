@@ -9,11 +9,13 @@ class BookCollection {
     this.books = this.loadBooks();
     this.bookId = this.books.length + 1;
   }
+
   /* eslint-disable class-methods-use-this */
   loadBooks() {
     return JSON.parse(localStorage.getItem('Books')) || [];
   }
   /* eslint-enable class-methods-use-this */
+
   saveBooks() {
     localStorage.setItem('Books', JSON.stringify(this.books));
   }
@@ -39,7 +41,7 @@ class BookCollection {
     const newBook = {
       id: this.bookId,
       title: `"${title}"`,
-      author: author,
+      author,
     };
     this.books.push(newBook);
     this.displayBook(newBook);
