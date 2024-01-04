@@ -1,13 +1,19 @@
+const bookList = document.querySelector('#bookList');
+const bookTemplate = document.getElementById('bookTemplate');
+const bookForm = document.getElementById('bookForm');
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+
 class BookCollection {
   constructor() {
     this.books = this.loadBooks();
     this.bookId = this.books.length + 1;
   }
-
+  /* eslint-disable class-methods-use-this */
   loadBooks() {
     return JSON.parse(localStorage.getItem('Books')) || [];
   }
-
+  /* eslint-enable class-methods-use-this */
   saveBooks() {
     localStorage.setItem('Books', JSON.stringify(this.books));
   }
@@ -42,12 +48,6 @@ class BookCollection {
   }
 }
 
-const bookList = document.querySelector('#bookList');
-const bookTemplate = document.getElementById('bookTemplate');
-const bookForm = document.getElementById('bookForm');
-const titleInput = document.getElementById('title');
-const authorInput = document.getElementById('author');
-
 const bookCollection = new BookCollection();
 
 bookCollection.books.forEach((book) => bookCollection.displayBook(book));
@@ -81,20 +81,20 @@ const displaySection = document.querySelector('.display-books');
 const addBookSection = document.querySelector('.add-book');
 const contactSection = document.querySelector('.contact-section');
 
-list.addEventListener('click', function() {
+list.addEventListener('click', () => {
   displaySection.classList.remove('hidden');
   addBookSection.classList.add('hidden');
   contactSection.classList.add('hidden');
-})
+});
 
-addNew.addEventListener('click', function() {
+addNew.addEventListener('click', () => {
   displaySection.classList.add('hidden');
   addBookSection.classList.remove('hidden');
   contactSection.classList.add('hidden');
-})
+});
 
-contactNav.addEventListener('click', function() {
+contactNav.addEventListener('click', () => {
   displaySection.classList.add('hidden');
   addBookSection.classList.add('hidden');
   contactSection.classList.remove('hidden');
-})
+});
