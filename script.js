@@ -73,3 +73,28 @@ bookList.addEventListener('click', (e) => {
   parent.remove();
   bookCollection.deleteBook(parseInt(bookId, 10));
 });
+
+const list = document.querySelector('.list');
+const addNew = document.querySelector('.add-new');
+const contactNav = document.querySelector('.contact-nav');
+const displaySection = document.querySelector('.display-books');
+const addBookSection = document.querySelector('.add-book');
+const contactSection = document.querySelector('.contact-section');
+
+list.addEventListener('click', function() {
+  displaySection.classList.remove('hidden');
+  addBookSection.classList.add('hidden');
+  contactSection.classList.add('hidden');
+})
+
+addNew.addEventListener('click', function() {
+  displaySection.classList.add('hidden');
+  addBookSection.classList.remove('hidden');
+  contactSection.classList.add('hidden');
+})
+
+contactNav.addEventListener('click', function() {
+  displaySection.classList.add('hidden');
+  addBookSection.classList.add('hidden');
+  contactSection.classList.remove('hidden');
+})
