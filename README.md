@@ -45,8 +45,8 @@ For more information on the importance of a professional README for your reposit
 
 # 📖 [Awesome Books Project] <a name="about-project"></a>
 
-Awesome-books project is written by Html, Css and Javascript.
-
+Awesome-books project is written by Html, Css and Javascript. You can add your favourite books with book title and author to your book list.
+You can check the books in the book list and remove your finished books if you want!
 <!-- Features -->
 
 <!-- LIVE DEMO -->
