@@ -6,32 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Awesome books</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-  <header>
-    <h1>Awesome books</h1>
-  </header>
-  <div id="bookList">
-
-  </div>
-  <template id="bookTemplate">
-    <div id="bookContainer">
-      <p id="book-title"></p>
-      <p id="book-author"></p>
-      <button id="removeBtn" type="button" class="closeBtn" data-button-delete>Remove</button>
-      <hr>
+  <nav>
+    <div>Awesome Books</div>
+    <div class="menu-list">
+      <a href="#" class="list">List</a>
+      <div>|</div>
+      <a href="#addBook" class="add-new">Add new</a>
+      <div>|</div>
+      <a href="#contactSection" class="contact-nav">Contact</a>
     </div>
-  </template>
+  </nav>
+  <div class="date"><p>January 4th 2024, 11:23:56 am</p></div>
+  <section class="hero">
+    <section class="display-books">
+      <header>
+        <h1>All Awesome books</h1>
+      </header>
+      <section id="bookList">
 
-  <main>
-    <form id="bookForm">
-      <input type="text" id="title" placeholder="Title" required>
-      <input type="text" id="author" placeholder="Author" required>
-      <button id="openBtn" type="submit">Add</button>
-    </form>
-  </main>
+      </section>
+      <template id="bookTemplate">
+        <div id="bookContainer" class="book-container">
+          <div class="bookText">
+            <p class="my-0" id="book-title"></p>
+            <p class="my-0">by</p>
+            <p class="my-0" id="book-author"></p>
+          </div>
+          <button id="removeBtn" type="button" class="closeBtn" data-button-delete>Remove</button>
+        </div>
+      </template>
+    </section>
+
+    <main class="add-book hidden" id="addBook">
+      <h1 class="pb-1">Add a new book</h1>
+      <form id="bookForm">
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="author" placeholder="Author" required>
+        <button id="openBtn" type="submit" class="addBtn">Add</button>
+      </form>
+    </main>
+
+    <section class="contact-section hidden" id="contactSection">
+      <h1>Contact information</h1>
+      <div class="question">
+        <div>Do have any questions or you just want to say "Hello"?</div>
+        <div>You can reach out to us!</div>    
+      </div>
+      <ul class="contact-info">
+        <li>Our e-mail: fredrickye7@mail.com</li>
+        <li>Our phone number: +959767125679</li>
+        <li>Our address: Streetname 22, 84503 Myeik, Myanmar</li>
+      </ul>
+    </section>
+  </section>
+  <footer>
+    <div class="copyright">Copyright</div>
+  </footer>
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
