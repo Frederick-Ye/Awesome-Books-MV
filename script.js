@@ -19,10 +19,17 @@ class BookCollection {
   saveBooks() {
     localStorage.setItem('Books', JSON.stringify(this.books));
   }
-
+  
   deleteBook(bookId) {
+    const confirmed = window.confirm('Are you sure you want to remove this book?');//added pop up message for removing the book
+    if (!confirmed) {
+      return;
+    }
+
     this.books = this.books.filter((book) => book.id !== bookId);
     this.saveBooks();
+
+    window.alert('Book removed successfully!');
   }
 
   displayBook(book) {
