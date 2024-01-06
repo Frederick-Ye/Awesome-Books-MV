@@ -30,7 +30,7 @@ class BookCollection {
     this.books = this.books.filter((book) => book.id !== bookId);
     this.saveBooks();
 
-    window.alert('Book removed successfully!');
+    window.alert('Book removed!');
   }
   /* eslint-enable class-methods-use-this */
 
