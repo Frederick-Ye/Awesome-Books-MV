@@ -29,7 +29,7 @@ class BookCollection {
     this.books = this.books.filter((book) => book.id !== bookId);
     this.saveBooks();
 
-    window.alert('Book is removed!');
+    window.alert('Book removed!');
   }
 
   displayBook(book) {
