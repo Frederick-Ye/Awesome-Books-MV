@@ -4,49 +4,71 @@ const bookForm = document.getElementById('bookForm');
 const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
 
-function loadBooks() {
-  return JSON.parse(localStorage.getItem('Books')) || [];
-}
-let books = loadBooks();
-let bookId = parseInt(books.length + 1, 10);
+class BookCollection {
+  constructor() {
+    this.books = this.loadBooks();
+    this.bookId = this.books.length + 1;
+  }
 
-function saveBooks() {
-  localStorage.setItem('Books', JSON.stringify(books));
-}
-function deleteBook(bookId) {
-  books = books.filter((book) => book.id !== bookId);
-  saveBooks();
+  /* eslint-disable class-methods-use-this */
+  loadBooks() {
+    return JSON.parse(localStorage.getItem('Books')) || [];
+  }
+  /* eslint-enable class-methods-use-this */
+
+  saveBooks() {
+    localStorage.setItem('Books', JSON.stringify(this.books));
+  }
+  
+  deleteBook(bookId) {
+    const confirmed = window.confirm('Are you sure you want to remove this book?');//added pop up message for removing the book
+    if (!confirmed) {
+      return;
+    }
+
+    this.books = this.books.filter((book) => book.id !== bookId);
+    this.saveBooks();
+
+    window.alert('Book removed successfully!');
+  }
+
+  displayBook(book) {
+    const templateClone = bookTemplate.content.cloneNode(true);
+    const bookTitle = templateClone.querySelector('#book-title');
+    const bookAuthor = templateClone.querySelector('#book-author');
+    const bookContainer = templateClone.querySelector('#bookContainer');
+    bookContainer.dataset.bookId = book.id;
+    bookTitle.textContent = book.title;
+    bookAuthor.textContent = book.author;
+    if (this.books.indexOf(book) % 2 === 0) bookContainer.classList.add('bg-gray');
+    bookList.appendChild(templateClone);
+  }
+
+  addBook(title, author) {
+    const newBook = {
+      id: this.bookId,
+      title: `"${title}"`,
+      author,
+    };
+    this.books.push(newBook);
+    this.displayBook(newBook);
+    this.saveBooks();
+    this.bookId += 1;
+  }
 }
 
-function displayBook(book) {
-  const templateClone = bookTemplate.content.cloneNode(true);
-  const bookTitle = templateClone.querySelector('#book-title');
-  const bookAuthor = templateClone.querySelector('#book-author');
-  const bookContainer = templateClone.querySelector('#bookContainer');
-  bookContainer.dataset.bookId = book.id;
-  bookTitle.textContent = book.title;
-  bookAuthor.textContent = book.author;
-  if (books.indexOf(book) % 2 === 0) bookContainer.classList.add('bg-gray');
-  bookList.appendChild(templateClone);
-}
+const bookCollection = new BookCollection();
 
-books.forEach(displayBook);
+bookCollection.books.forEach((book) => bookCollection.displayBook(book));
+
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const bookTitle = titleInput.value;
   const bookAuthor = authorInput.value;
   if (!bookTitle || !bookAuthor) return;
-  const newBook = {
-    id: bookId,
-    title: `"${bookTitle}"`,
-    author: bookAuthor,
-  };
-  books.push(newBook);
-  displayBook(newBook);
-  saveBooks();
+  bookCollection.addBook(bookTitle, bookAuthor);
   titleInput.value = '';
   authorInput.value = '';
-  bookId += 1;
 });
 
 bookList.addEventListener('click', (e) => {
@@ -58,5 +80,30 @@ bookList.addEventListener('click', (e) => {
 
   const bookId = parent.getAttribute('data-book-id');
   parent.remove();
-  deleteBook(parseInt(bookId, 10));
+  bookCollection.deleteBook(parseInt(bookId, 10));
+});
+
+const list = document.querySelector('.list');
+const addNew = document.querySelector('.add-new');
+const contactNav = document.querySelector('.contact-nav');
+const displaySection = document.querySelector('.display-books');
+const addBookSection = document.querySelector('.add-book');
+const contactSection = document.querySelector('.contact-section');
+
+list.addEventListener('click', () => {
+  displaySection.classList.remove('hidden');
+  addBookSection.classList.add('hidden');
+  contactSection.classList.add('hidden');
+});
+
+addNew.addEventListener('click', () => {
+  displaySection.classList.add('hidden');
+  addBookSection.classList.remove('hidden');
+  contactSection.classList.add('hidden');
+});
+
+contactNav.addEventListener('click', () => {
+  displaySection.classList.add('hidden');
+  addBookSection.classList.add('hidden');
+  contactSection.classList.remove('hidden');
 });
