@@ -19,9 +19,10 @@ class BookCollection {
   saveBooks() {
     localStorage.setItem('Books', JSON.stringify(this.books));
   }
-  
+
+  /* eslint-disable class-methods-use-this */
   deleteBook(bookId) {
-    const confirmed = window.confirm('Are you sure you want to remove this book?');//added pop up message for removing the book
+    const confirmed = window.confirm('Are you sure you want to remove this book?');
     if (!confirmed) {
       return;
     }
@@ -31,6 +32,7 @@ class BookCollection {
 
     window.alert('Book removed successfully!');
   }
+  /* eslint-enable class-methods-use-this */
 
   displayBook(book) {
     const templateClone = bookTemplate.content.cloneNode(true);
